@@ -3,8 +3,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Button } from '@/components/ui/button';
 import { icons } from 'lucide-react';
 
+// Refined list of common icon names likely available in lucide-react
 const iconOptions = [
-  'Sun', 'Moon', 'Heart', 'Star', 'Apple', 'Droplet', 'Leaf', 'Pill', 'Smile', 'Zap', 'Coffee', 'Book', 'Dumbbell', 'Music', 'Feather', 'Globe', 'Check', 'Plus', 'Clock', 'AlertCircle',
+  'Sun', 'Moon', 'Heart', 'Star', 'Apple', 'Droplet', 'Leaf', 'Pill', 'Smile', 'Coffee', 'Book', 'Dumbbell', 'Check', 'Plus', 'Clock', 'AlertCircle', 'Trophy', 'FlaskConical', 'Bone', 'Activity', 'ShowerHead', 'Egg', 'Carrot', 'Fish', 'Meat', 'Milk', 'Nut', 'Seed', 'Thermometer', 'Syringe', 'Stethoscope', 'Microscope',
 ];
 const colorOptions = [
   'bg-mint', 'bg-coral', 'bg-sunny', 'bg-purple-500', 'bg-pink-500', 'bg-blue-500', 'bg-green-500', 'bg-orange-500', 'bg-slate-500',
@@ -51,6 +52,10 @@ const SupplementModal: React.FC<SupplementModalProps> = ({ open, onClose, onSave
               <div className="grid grid-cols-5 gap-2">
                 {iconOptions.map((iconName) => {
                   const Icon = icons[iconName];
+                  if (!Icon) {
+                    console.warn(`Icon component not found for name: ${iconName}`);
+                    return null;
+                  }
                   return (
                     <button key={iconName} type="button" onClick={() => setIcon(iconName)} className={`rounded-lg p-2 border ${icon === iconName ? 'border-mint bg-mint/10' : 'border-transparent'}`}>
                       <Icon className="w-5 h-5" />

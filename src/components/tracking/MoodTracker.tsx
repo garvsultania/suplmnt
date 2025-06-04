@@ -37,7 +37,7 @@ export const MoodTracker = () => {
           <div className="w-1 h-5 md:h-6 bg-gradient-mint rounded-full" />
           Mood & Wellbeing
         </h3>
-        <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 md:gap-4">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1.5 sm:gap-2 md:gap-4">
           {moods.map((mood) => {
             const Icon = mood.icon;
             const isSelected = selectedMood === mood.id;
@@ -46,7 +46,7 @@ export const MoodTracker = () => {
               <button
                 key={mood.id}
                 onClick={() => setSelectedMood(mood.id)}
-                className={`flex flex-col items-center gap-2 md:gap-3 glass relative overflow-hidden group ${
+                className={`flex flex-col items-center gap-1 sm:gap-2 md:gap-3 glass relative overflow-hidden group p-2 sm:p-3 md:p-4 ${
                   isSelected 
                     ? `glass-hover bg-gradient-to-br ${mood.gradient} text-white scale-105` 
                     : 'hover:scale-105'
@@ -57,8 +57,8 @@ export const MoodTracker = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
                 )}
                 <div className="relative z-10 text-center">
-                  <Icon className={`icon-premium mb-1 md:mb-2 mx-auto ${isSelected ? 'animate-bounce' : 'group-hover:scale-110 transition-transform duration-300'} ${isSelected ? 'icon-white' : ''}`} />
-                  <span className="text-xs md:text-sm font-inter font-semibold block">{mood.label}</span>
+                  <Icon className={`w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 mb-0.5 sm:mb-1 md:mb-2 mx-auto ${isSelected ? 'animate-bounce' : 'group-hover:scale-110 transition-transform duration-300'} ${isSelected ? 'text-white' : ''}`} />
+                  <span className="text-[10px] sm:text-xs md:text-sm font-inter font-semibold block">{mood.label}</span>
                 </div>
               </button>
             );

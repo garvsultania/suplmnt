@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { Button } from '@/components/ui/button';
@@ -9,18 +8,18 @@ const LifestyleStep = () => {
   const [selectedExercise, setSelectedExercise] = useState(data.exerciseLevel || '');
 
   const dietOptions = [
-    { id: 'omnivore', label: 'Omnivore', icon: '🍖', description: 'Eat everything' },
-    { id: 'vegetarian', label: 'Vegetarian', icon: '🥬', description: 'No meat' },
-    { id: 'vegan', label: 'Vegan', icon: '🌱', description: 'Plant-based only' },
-    { id: 'keto', label: 'Keto', icon: '🥑', description: 'Low-carb, high-fat' },
-    { id: 'paleo', label: 'Paleo', icon: '🥩', description: 'Whole foods' },
-    { id: 'mediterranean', label: 'Mediterranean', icon: '🫒', description: 'Fish, olive oil' },
+    { id: 'omnivore', label: 'Omnivore', description: 'Eat everything' },
+    { id: 'vegetarian', label: 'Vegetarian', description: 'No meat' },
+    { id: 'vegan', label: 'Vegan', description: 'Plant-based only' },
+    { id: 'keto', label: 'Keto', description: 'Low-carb, high-fat' },
+    { id: 'paleo', label: 'Paleo', description: 'Whole foods' },
+    { id: 'mediterranean', label: 'Mediterranean', description: 'Fish, olive oil' },
   ];
 
   const exerciseOptions = [
-    { id: 'low', label: 'Low Activity', icon: '🚶', description: 'Sedentary lifestyle', gradient: 'bg-gradient-sunny' },
-    { id: 'moderate', label: 'Moderate Activity', icon: '🏃', description: '2-3 workouts/week', gradient: 'bg-gradient-mint' },
-    { id: 'high', label: 'High Activity', icon: '💪', description: '5+ workouts/week', gradient: 'bg-gradient-coral' },
+    { id: 'low', label: 'Low Activity', description: 'Sedentary lifestyle', gradient: 'bg-gradient-sunny' },
+    { id: 'moderate', label: 'Moderate Activity', description: '2-3 workouts/week', gradient: 'bg-gradient-mint' },
+    { id: 'high', label: 'High Activity', description: '5+ workouts/week', gradient: 'bg-gradient-coral' },
   ];
 
   const handleDietToggle = (dietId: string) => {
@@ -38,8 +37,8 @@ const LifestyleStep = () => {
   };
 
   return (
-    <div className="card-glass h-full p-8 space-y-8 overflow-y-auto">
-      <div className="text-center">
+    <div className="card-glass h-full p-8 space-y-6 overflow-y-auto">
+      <div className="text-center mb-6">
         <h2 className="text-2xl font-poppins font-bold text-slate mb-2">
           Lifestyle Preferences
         </h2>
@@ -67,7 +66,6 @@ const LifestyleStep = () => {
                 }
               `}
             >
-              <span className="text-2xl mb-1">{option.icon}</span>
               <span className="font-inter font-medium text-sm">{option.label}</span>
             </Button>
           ))}
@@ -86,14 +84,13 @@ const LifestyleStep = () => {
               variant="outline"
               onClick={() => handleExerciseSelect(option.id as 'low' | 'moderate' | 'high')}
               className={`
-                btn-glass w-full h-16 justify-start text-left transition-all duration-300
+                btn-glass w-full h-16 justify-start text-left transition-all duration-300 px-4
                 ${selectedExercise === option.id
                   ? `${option.gradient} text-white border-transparent shadow-glass-lg scale-105`
                   : 'border-white/20 text-slate hover:border-mint hover:scale-105'
                 }
               `}
             >
-              <span className="text-2xl mr-4">{option.icon}</span>
               <div>
                 <div className="font-inter font-medium text-base">{option.label}</div>
                 <div className="text-sm opacity-80">{option.description}</div>
@@ -104,7 +101,7 @@ const LifestyleStep = () => {
       </div>
 
       {/* Info Card */}
-      <div className="glass p-4 bg-mint/5 border-mint/20">
+      <div className="glass p-4 bg-mint/5 border-mint/20 mt-6">
         <div className="flex items-start gap-3">
           <div className="w-6 h-6 bg-mint rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
             <div className="w-2 h-2 bg-white rounded-full"></div>

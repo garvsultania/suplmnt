@@ -23,11 +23,61 @@ export default {
 				'inter': ['Inter', 'sans-serif'],
 			},
 			colors: {
-				// Custom color palette
-				mint: '#4ECDC4',
-				sunny: '#FFE66D',
-				coral: '#FF6B9D',
-				slate: '#2C3E50',
+				// Primary
+				mint: {
+					DEFAULT: '#3AA76D',
+					light: '#4ECDC4',
+					dark: '#2D8B5D',
+				},
+				// Secondary Accents
+				coral: {
+					DEFAULT: '#F06E8C',
+					light: '#FF6B9D',
+					dark: '#C44569',
+				},
+				sunny: {
+					DEFAULT: '#F4C759',
+					light: '#FFE66D',
+					dark: '#FFB347',
+				},
+				// Neutrals
+				navy: {
+					DEFAULT: '#1F2B45',
+					light: '#2C3E50',
+					dark: '#141B2D',
+				},
+				ivory: {
+					DEFAULT: '#F7F7F5',
+					light: '#FFFFFF',
+					dark: '#E8E8E6',
+				},
+				gray: {
+					muted: '#E8E8E6',
+					mid: '#4A5462',
+					light: '#F0F2F5',
+				},
+				// Slate Colors (for backward compatibility)
+				slate: {
+					DEFAULT: '#1F2B45',
+					50: '#F8FAFC',
+					100: '#F1F5F9',
+					200: '#E2E8F0',
+					300: '#CBD5E1',
+					400: '#94A3B8',
+					500: '#64748B',
+					600: '#475569',
+					700: '#334155',
+					800: '#1E293B',
+					900: '#0F172A',
+				},
+				// Semantic Colors
+				success: '#3AA76D',
+				error: '#F06E8C',
+				warning: '#F4C759',
+				info: {
+					light: '#FFFFFF',
+					dark: '#1F2B45',
+				},
 				// Keep existing shadcn colors
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -62,28 +112,19 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				}
 			},
 			backgroundImage: {
-				'gradient-main': 'linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%)',
 				'gradient-glass': 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)',
-				'gradient-mint': 'linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%)',
-				'gradient-coral': 'linear-gradient(135deg, #FF6B9D 0%, #C44569 100%)',
-				'gradient-sunny': 'linear-gradient(135deg, #FFE66D 0%, #FFB347 100%)',
+				'gradient-mint': 'linear-gradient(135deg, #3AA76D 0%, #2D8B5D 100%)',
+				'gradient-coral': 'linear-gradient(135deg, #F06E8C 0%, #C44569 100%)',
+				'gradient-sunny': 'linear-gradient(135deg, #F4C759 0%, #FFB347 100%)',
 			},
 			backdropBlur: {
 				'glass': '20px',
 			},
 			boxShadow: {
+				'card': '0 2px 8px rgba(0,0,0,0.05)',
+				'fab': '0 4px 12px rgba(0,0,0,0.1)',
 				'glass': '0 8px 32px rgba(31, 38, 135, 0.37)',
 				'glass-lg': '0 15px 35px rgba(31, 38, 135, 0.2)',
 				'float': '0 10px 30px rgba(0, 0, 0, 0.1)',
@@ -126,6 +167,10 @@ export default {
 				'fade-in': {
 					'0%': { opacity: '0' },
 					'100%': { opacity: '1' },
+				},
+				'shimmer': {
+					'0%': { backgroundPosition: '-200% 0' },
+					'100%': { backgroundPosition: '200% 0' },
 				}
 			},
 			animation: {
@@ -135,7 +180,20 @@ export default {
 				'pulse-slow': 'pulse-slow 2s ease-in-out infinite',
 				'slide-up': 'slide-up 0.3s ease-out',
 				'fade-in': 'fade-in 0.5s ease-out',
-			}
+				'shimmer': 'shimmer 2s infinite linear',
+			},
+			transitionProperty: {
+				'transform': 'transform',
+				'opacity': 'opacity',
+			},
+			transitionDuration: {
+				'200': '200ms',
+				'300': '300ms',
+			},
+			transitionTimingFunction: {
+				'ease-out': 'cubic-bezier(0, 0, 0.2, 1)',
+				'ease-in-out': 'cubic-bezier(0.4, 0, 0.2, 1)',
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

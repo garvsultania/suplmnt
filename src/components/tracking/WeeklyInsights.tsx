@@ -38,7 +38,7 @@ export const WeeklyInsights = () => {
           <Calendar className="w-5 h-5 md:w-6 md:h-6 text-white" />
         </div>
         <div className="flex-1 min-w-0">
-          <h2 className="text-xl md:text-2xl font-poppins font-bold text-slate tracking-tight truncate">Weekly Insights</h2>
+          <h2 className="text-xl md:text-2xl font-poppins font-bold text-slate tracking-tight">Weekly Insights</h2>
           <p className="text-slate/60 font-inter text-sm md:text-base">Your wellness journey this week</p>
         </div>
         <div className="text-right flex-shrink-0">
@@ -47,20 +47,20 @@ export const WeeklyInsights = () => {
         </div>
       </div>
 
-      <div className="space-y-4 md:space-y-6">
+      <div className="space-y-3 sm:space-y-4 md:space-y-6">
         {insights.map((insight, index) => {
           const Icon = insight.icon;
           
           return (
-            <div key={index} className="glass relative overflow-hidden hover:scale-[1.01] md:hover:scale-[1.02] transition-all duration-500 cursor-pointer group">
+            <div key={index} className="glass relative overflow-hidden hover:scale-[1.01] md:hover:scale-[1.02] transition-all duration-500 cursor-pointer group p-3 sm:p-4 md:p-5">
               {/* Mobile-optimized premium gradient overlay */}
               <div className={`absolute inset-0 bg-gradient-to-r from-${insight.color}/12 via-${insight.color}/6 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
-              <div className="absolute top-0 right-0 w-20 h-20 md:w-32 md:h-32 bg-gradient-to-bl from-white/8 to-transparent rounded-full -translate-y-10 translate-x-10 md:-translate-y-16 md:translate-x-16" />
+              <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 md:w-32 md:h-32 bg-gradient-to-bl from-white/8 to-transparent rounded-full -translate-y-8 translate-x-8 sm:-translate-y-10 sm:translate-x-10 md:-translate-y-16 md:translate-x-16" />
               
               {insight.premium && (
-                <div className="absolute top-3 right-3 md:top-4 md:right-4">
-                  <div className="w-6 h-6 md:w-8 md:h-8 bg-gradient-to-br from-sunny to-coral rounded-full flex items-center justify-center shadow-sm">
-                    <Star className="icon-sm md:icon-md icon-white" />
+                <div className="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4">
+                  <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 bg-gradient-to-br from-sunny to-coral rounded-full flex items-center justify-center shadow-sm">
+                    <Star className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
                   </div>
                 </div>
               )}

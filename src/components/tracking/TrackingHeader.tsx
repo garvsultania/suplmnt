@@ -1,4 +1,3 @@
-
 import { Calendar, Trophy, Flame, TrendingUp } from 'lucide-react';
 
 export const TrackingHeader = () => {
@@ -20,7 +19,7 @@ export const TrackingHeader = () => {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 md:gap-3 mb-2">
               <div className="w-1.5 h-6 md:w-2 md:h-8 bg-gradient-mint rounded-full shadow-glow" />
-              <h1 className="text-2xl md:text-3xl font-poppins font-bold text-slate tracking-tight truncate">
+              <h1 className="text-2xl md:text-3xl font-poppins font-bold text-slate tracking-tight">
                 Daily Tracking
               </h1>
             </div>

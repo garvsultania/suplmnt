@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -13,8 +12,8 @@ const PrivacyStep = () => {
   };
 
   return (
-    <div className="card-glass h-full p-8 space-y-8">
-      <div className="text-center">
+    <div className="card-glass h-full p-8 space-y-6">
+      <div className="text-center mb-6">
         <h2 className="text-2xl font-poppins font-bold text-slate mb-2">
           Privacy & Security
         </h2>
@@ -75,7 +74,7 @@ const PrivacyStep = () => {
       </div>
 
       {/* Consent Checkbox */}
-      <div className="space-y-6">
+      <div className="space-y-4">
         <div className="flex items-start gap-4">
           <Checkbox
             checked={isAccepted}
@@ -93,7 +92,7 @@ const PrivacyStep = () => {
         </div>
 
         {isAccepted && (
-          <div className="glass p-4 bg-mint/10 border-mint/30 animate-fade-in">
+          <div className="glass p-4 bg-mint/10 border-mint/30 animate-fade-in mt-4">
             <div className="flex items-center gap-3">
               <div className="w-6 h-6 bg-mint rounded-full flex items-center justify-center">
                 <div className="w-2 h-2 bg-white rounded-full"></div>

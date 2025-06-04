@@ -1,4 +1,3 @@
-
 import { Camera, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +8,7 @@ export const UploadFab = () => {
     <div className="fixed bottom-24 right-6 z-40">
       <button
         onClick={() => navigate('/lab-reports')}
-        className="w-16 h-16 bg-gradient-mint rounded-full shadow-float flex items-center justify-center hover:scale-110 transition-all duration-300 group"
+        className="w-16 h-16 bg-mint rounded-full shadow-float flex items-center justify-center hover:scale-110 transition-all duration-300 group"
       >
         <div className="relative">
           <Camera className="w-6 h-6 text-white transition-transform group-hover:scale-110" />

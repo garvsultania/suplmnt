@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ChevronRight } from 'lucide-react';
 
 export const HealthInsights = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -8,19 +9,25 @@ export const HealthInsights = () => {
       title: 'Vitamin D Deficiency Detected',
       description: 'Your latest lab results show low vitamin D levels. Consider increasing sun exposure or supplementation.',
       type: 'warning',
-      gradient: 'bg-gradient-coral',
+      bgColor: 'bg-red-100',
+      textColor: 'text-red-800',
+      action: { label: 'Take Action', link: '/supplements' }
     },
     {
       title: 'Great Progress on B12!',
       description: 'Your B12 levels have improved by 30% since starting supplementation. Keep it up!',
       type: 'success',
-      gradient: 'bg-gradient-mint',
+      bgColor: 'bg-green-100',
+      textColor: 'text-green-800',
+      action: null
     },
     {
       title: 'Optimize Your Iron Absorption',
       description: 'Take iron supplements with vitamin C and avoid coffee/tea for 2 hours after.',
       type: 'tip',
-      gradient: 'bg-gradient-sunny',
+      bgColor: 'bg-yellow-100',
+      textColor: 'text-yellow-800',
+      action: { label: 'Learn More', link: '/research' }
     },
   ];
 
@@ -43,7 +50,7 @@ export const HealthInsights = () => {
         >
           {insights.map((insight, index) => (
             <div key={index} className="w-full flex-shrink-0 px-2">
-              <div className={`card-glass ${insight.gradient} text-white relative p-4 md:p-6`}>
+              <div className={`card-glass ${insight.bgColor} ${insight.textColor} relative p-4 md:p-6`}>
                 <button
                   className="absolute top-2 right-2 p-1 text-white/70 hover:text-white/100 text-lg font-bold rounded-full focus:outline-none focus:ring-2 focus:ring-white/70 transition-colors duration-200"
                   aria-label="Dismiss insight"
@@ -51,12 +58,20 @@ export const HealthInsights = () => {
                 >
                   ×
                 </button>
-                <h3 className="font-poppins font-semibold text-base md:text-lg mb-2 md:mb-3 pr-8">
+                <h3 className={`font-poppins font-semibold text-base md:text-lg mb-2 md:mb-3 pr-8 ${insight.textColor}`}>
                   {insight.title}
                 </h3>
-                <p className="font-inter text-sm md:text-base text-white/90 leading-relaxed">
+                <p className={`font-inter text-sm md:text-base ${insight.textColor} leading-relaxed`}>
                   {insight.description}
                 </p>
+                {insight.action && (
+                  <div className="mt-4">
+                    <a href={insight.action.link} className={`inline-flex items-center text-sm font-medium ${insight.textColor} hover:underline`}>
+                      {insight.action.label}
+                      <ChevronRight className="w-4 h-4 ml-1" />
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           ))}

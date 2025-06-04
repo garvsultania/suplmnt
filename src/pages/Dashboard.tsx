@@ -216,23 +216,23 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 space-y-4 sm:space-y-6">
         {/* Date/Period Selector */}
-        <div className="flex gap-2 mb-6">
+        <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
             <button 
-                className={`px-4 py-2 text-sm font-medium rounded-full ${selectedPeriod === 'today' ? 'bg-mint text-white' : 'text-slate-700 border border-gray-300'}`}
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-full transition-all duration-200 ${selectedPeriod === 'today' ? 'bg-mint text-white shadow-md' : 'text-slate-700 border border-gray-300 hover:bg-gray-50'}`}
                 onClick={() => setSelectedPeriod('today')}
             >
                 Today
             </button>
             <button 
-                className={`px-4 py-2 text-sm font-medium rounded-full ${selectedPeriod === 'weekly' ? 'bg-mint text-white' : 'text-slate-700 border border-gray-300'}`}
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-full transition-all duration-200 ${selectedPeriod === 'weekly' ? 'bg-mint text-white shadow-md' : 'text-slate-700 border border-gray-300 hover:bg-gray-50'}`}
                 onClick={() => setSelectedPeriod('weekly')}
             >
                 Weekly
             </button>
             <button 
-                className={`px-4 py-2 text-sm font-medium rounded-full ${selectedPeriod === 'monthly' ? 'bg-mint text-white' : 'text-slate-700 border border-gray-300'}`}
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-full transition-all duration-200 ${selectedPeriod === 'monthly' ? 'bg-mint text-white shadow-md' : 'text-slate-700 border border-gray-300 hover:bg-gray-50'}`}
                 onClick={() => setSelectedPeriod('monthly')}
             >
                 Monthly
@@ -306,23 +306,12 @@ export default function Dashboard() {
             </div>
         </div>
 
-        {/* Mood Check */}
-         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <h2 className="text-lg font-medium text-slate mb-4">What's the mood today?</h2>
-            <div className="flex flex-wrap gap-3">
-                {moodOptions.map((mood) => (
-                    <button 
-                        key={mood}
-                        className={`px-4 py-2 text-sm font-medium rounded-full ${selectedMood === mood ? 'bg-mint text-white' : 'border border-gray-300 text-slate-700'}`}
-                        onClick={() => setSelectedMood(mood)}
-                    >
-                        {mood}
-                    </button>
-                ))}
-            </div>
-      </div>
-
       </main>
+
+      {/* Footer for brand recall */}
+      <footer className="w-full text-center py-4 text-slate/40 text-sm">
+        suplmnt
+      </footer>
 
       {/* Floating Action Button */}
       <TooltipProvider>

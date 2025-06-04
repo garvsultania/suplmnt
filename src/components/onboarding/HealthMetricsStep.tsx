@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useOnboarding } from '@/contexts/OnboardingContext';
 import { Slider } from '@/components/ui/slider';
@@ -37,8 +36,8 @@ const HealthMetricsStep = () => {
   const bmiCategory = getBMICategory(bmi);
 
   return (
-    <div className="card-glass h-full p-8 space-y-8">
-      <div className="text-center">
+    <div className="card-glass h-full p-8 space-y-6">
+      <div className="text-center mb-6">
         <h2 className="text-2xl font-poppins font-bold text-slate mb-2">
           Health Metrics
         </h2>
@@ -105,7 +104,7 @@ const HealthMetricsStep = () => {
       </div>
 
       {/* Info Card */}
-      <div className="glass p-4 bg-mint/5 border-mint/20">
+      <div className="glass p-4 bg-mint/5 border-mint/20 mt-6">
         <div className="flex items-start gap-3">
           <div className="w-6 h-6 bg-mint rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
             <div className="w-2 h-2 bg-white rounded-full"></div>

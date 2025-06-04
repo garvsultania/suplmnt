@@ -1,19 +1,72 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useProfile } from '../contexts/ProfileContext';
+import { FormInput } from '../components/ui/FormInput';
 import { BottomNavigation } from '@/components/layout/BottomNavigation';
 import { User, LogOut, Mail, Bell, Moon, Sun, Camera } from 'lucide-react';
 
-const Profile = () => {
-  const [name, setName] = useState('Jane Doe');
-  const [email, setEmail] = useState('jane@example.com');
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const [notifications, setNotifications] = useState(true);
+interface FormErrors {
+  name?: string;
+  email?: string;
+  age?: string;
+  height?: string;
+  weight?: string;
+}
+
+export function Profile() {
+  const { profile, updateProfile, isEditing, setIsEditing } = useProfile();
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [formData, setFormData] = useState(profile);
   const [showToast, setShowToast] = useState<string | null>(null);
 
-  // Feedback handler
-  const handleSave = () => {
-    setShowToast('Profile saved!');
-    setTimeout(() => setShowToast(null), 2000);
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Invalid email format';
+    }
+    
+    if (formData.age < 0 || formData.age > 120) {
+      newErrors.age = 'Age must be between 0 and 120';
+    }
+    
+    if (formData.height < 0 || formData.height > 300) {
+      newErrors.height = 'Height must be between 0 and 300 cm';
+    }
+    
+    if (formData.weight < 0 || formData.weight > 500) {
+      newErrors.weight = 'Weight must be between 0 and 500 kg';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validateForm()) {
+      updateProfile(formData);
+      setIsEditing(false);
+      setShowToast('Profile saved!');
+      setTimeout(() => setShowToast(null), 2000);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: name === 'age' || name === 'height' || name === 'weight' 
+        ? Number(value) 
+        : value
+    }));
+  };
+
   const handleLogout = () => {
     setShowToast('Logged out!');
     setTimeout(() => setShowToast(null), 2000);
@@ -28,85 +81,169 @@ const Profile = () => {
         </div>
       )}
 
-      {/* Avatar Card */}
+      {/* Profile Header */}
       <div className="glass m-3 p-5 rounded-3xl flex flex-col items-center relative">
         <div className="relative w-20 h-20 sm:w-24 sm:h-24 mb-3">
           <div className="w-full h-full rounded-full bg-gradient-to-br from-mint via-sunny to-coral flex items-center justify-center shadow-float">
             <User className="icon-lg icon-white" aria-label="User avatar" />
           </div>
-          {/* Edit avatar icon */}
-          <button className="absolute bottom-1 right-1 bg-white/80 rounded-full p-1 shadow-md border border-white hover:bg-mint/80 transition-colors" aria-label="Change avatar">
+          <button 
+            className="absolute bottom-1 right-1 bg-white/80 rounded-full p-1 shadow-md border border-white hover:bg-mint/80 transition-colors" 
+            aria-label="Change avatar"
+          >
             <Camera className="icon-premium icon-accent" />
           </button>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-poppins font-bold text-slate mb-0.5 text-center break-words">{name}</h1>
-        <p className="text-base sm:text-lg text-slate/70 font-inter mb-1 text-center break-all">{email}</p>
+        <h1 className="text-2xl sm:text-3xl font-poppins font-bold text-slate mb-0.5 text-center break-words">
+          {formData.name || 'Your Name'}
+        </h1>
+        <p className="text-base sm:text-lg text-slate/70 font-inter mb-1 text-center break-all">
+          {formData.email || 'your.email@example.com'}
+        </p>
       </div>
 
-      {/* Editable Fields Card */}
+      {/* Profile Settings */}
       <div className="glass m-3 p-5 rounded-3xl space-y-5">
-        <div>
-          <label className="block text-sm font-medium text-slate-600 mb-2" htmlFor="profile-name">Name</label>
-          <input
-            id="profile-name"
-            className="w-full rounded-xl border px-4 py-3 bg-white/10 border-white/20 focus:border-mint focus:ring-2 focus:ring-mint text-base font-inter transition-all outline-none"
-            value={name}
-            onChange={e => setName(e.target.value)}
-            placeholder="Your name"
-            aria-label="Name"
-            autoComplete="name"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-slate-600 mb-2" htmlFor="profile-email">Email</label>
-          <input
-            id="profile-email"
-            className="w-full rounded-xl border px-4 py-3 bg-white/10 border-white/20 focus:border-mint focus:ring-2 focus:ring-mint text-base font-inter transition-all outline-none"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder="Your email"
-            type="email"
-            aria-label="Email"
-            autoComplete="email"
-          />
-        </div>
         <div className="flex items-center justify-between py-2">
           <span className="flex items-center gap-2 text-slate/80 font-inter text-base">
             <Bell className="icon-premium icon-accent" aria-hidden /> Notifications
           </span>
           <button
-            className={`w-14 h-8 rounded-full flex items-center transition-colors duration-300 ${notifications ? 'bg-mint/80' : 'bg-slate/30'}`}
-            onClick={() => setNotifications(v => !v)}
-            aria-label={notifications ? 'Disable notifications' : 'Enable notifications'}
-            tabIndex={0}
+            className="w-14 h-8 rounded-full flex items-center bg-slate/30 relative transition-colors duration-300 focus:ring-2 focus:ring-mint"
+            aria-label="Toggle notifications"
           >
-            <span className={`inline-block w-7 h-7 rounded-full bg-white shadow transition-transform duration-300 ${notifications ? 'translate-x-6' : 'translate-x-0'}`}></span>
+            <span className="absolute left-1 top-1 w-6 h-6 rounded-full bg-white shadow transition-transform duration-300"></span>
           </button>
         </div>
+
         <div className="flex items-center justify-between py-2">
           <span className="flex items-center gap-2 text-slate/80 font-inter text-base">
-            {theme === 'light' ? <Sun className="icon-premium text-sunny" aria-hidden /> : <Moon className="icon-premium icon-muted" aria-hidden />} Theme
+            <Sun className="icon-premium text-sunny" aria-hidden /> Theme
           </span>
           <button
             className="w-14 h-8 rounded-full flex items-center bg-slate/30 relative transition-colors duration-300 focus:ring-2 focus:ring-mint"
-            onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
-            aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
-            tabIndex={0}
+            aria-label="Toggle theme"
           >
-            <span className={`absolute left-1 top-1 w-6 h-6 rounded-full bg-white shadow transition-transform duration-300 ${theme === 'dark' ? 'translate-x-6' : 'translate-x-0'}`}></span>
-            <span className="absolute left-2 top-2 text-mint">{theme === 'light' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}</span>
+            <span className="absolute left-1 top-1 w-6 h-6 rounded-full bg-white shadow transition-transform duration-300"></span>
           </button>
         </div>
+
         <button
+          onClick={() => setIsEditing(true)}
           className="w-full btn-glass btn-primary mt-4 py-4 rounded-2xl font-semibold text-lg shadow-lg focus:ring-2 focus:ring-mint"
-          onClick={handleSave}
-          aria-label="Save changes"
+          aria-label="Edit profile"
         >
-          Save Changes
+          Edit Profile
         </button>
       </div>
 
-      {/* Log Out Button Card */}
+      {/* Edit Profile Modal */}
+      {isEditing && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-3xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <h2 className="text-2xl font-bold text-slate mb-6">Edit Profile</h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <FormInput
+                label="Name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                error={errors.name}
+              />
+
+              <FormInput
+                label="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                error={errors.email}
+              />
+
+              <FormInput
+                label="Age"
+                name="age"
+                type="number"
+                value={formData.age}
+                onChange={handleChange}
+                error={errors.age}
+              />
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Gender
+                </label>
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <FormInput
+                label="Height (cm)"
+                name="height"
+                type="number"
+                value={formData.height}
+                onChange={handleChange}
+                error={errors.height}
+              />
+
+              <FormInput
+                label="Weight (kg)"
+                name="weight"
+                type="number"
+                value={formData.weight}
+                onChange={handleChange}
+                error={errors.weight}
+              />
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Dietary Preference
+                </label>
+                <select
+                  name="dietaryPreference"
+                  value={formData.dietaryPreference}
+                  onChange={handleChange}
+                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                >
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="non-vegetarian">Non-vegetarian</option>
+                </select>
+              </div>
+
+              <div className="flex justify-end space-x-4 pt-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFormData(profile);
+                    setIsEditing(false);
+                    setErrors({});
+                  }}
+                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-mint text-white rounded-md hover:bg-mint/90"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Log Out Button */}
       <div className="glass m-3 p-5 rounded-3xl flex justify-center">
         <button
           className="flex items-center gap-2 text-coral font-semibold text-lg px-6 py-3 rounded-xl hover:bg-coral/10 transition-colors focus:ring-2 focus:ring-coral"
@@ -121,6 +258,4 @@ const Profile = () => {
       <BottomNavigation />
     </div>
   );
-};
-
-export default Profile;
+}

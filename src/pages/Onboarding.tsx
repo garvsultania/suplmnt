@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOnboarding } from '@/contexts/OnboardingContext';
@@ -31,7 +30,7 @@ const Onboarding = () => {
     } else {
       // Complete onboarding
       console.log('Onboarding completed:', data);
-      navigate('/dashboard');
+      navigate('/lab-reports');
     }
   };
 
@@ -75,14 +74,14 @@ const Onboarding = () => {
       </div>
 
       {/* Step Content */}
-      <div className="flex-1 px-4 pb-4">
+      <div className="flex-1 px-4 pb-20">
         <div className="h-full">
           {CurrentStepComponent && <CurrentStepComponent />}
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="glass m-4 p-4">
+      <div className="fixed bottom-0 left-0 right-0 z-50 glass m-4 p-4">
         <div className="flex justify-between gap-4">
           <Button
             variant="outline"

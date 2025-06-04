@@ -46,42 +46,26 @@ export const ProgressOverview = () => {
         </div>
       </div>
 
-      <div className="space-y-4 md:space-y-6">
+      <div className="space-y-3 sm:space-y-4 md:space-y-6">
         {progressData.map((item, index) => (
           <div 
             key={index} 
-            className="glass p-3 md:p-4 rounded-xl md:rounded-2xl relative overflow-hidden group hover:scale-[1.01] transition-all duration-300 cursor-pointer"
+            className="glass p-2.5 sm:p-3 md:p-4 rounded-lg sm:rounded-xl md:rounded-2xl relative overflow-hidden group hover:scale-[1.01] transition-all duration-300 cursor-pointer"
           >
             {/* Enhanced gradient background with mobile optimization */}
             <div className={`absolute inset-0 bg-gradient-to-r from-${item.color}/10 via-${item.color}/5 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300`} />
-            <div className="absolute top-0 right-0 w-12 h-12 md:w-16 md:h-16 bg-gradient-to-bl from-white/8 to-transparent rounded-full -translate-y-6 translate-x-6 md:-translate-y-8 md:translate-x-8" />
+            <div className="absolute top-0 right-0 w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 bg-gradient-to-bl from-white/8 to-transparent rounded-full -translate-y-5 translate-x-5 sm:-translate-y-6 sm:translate-x-6 md:-translate-y-8 md:translate-x-8" />
             
             <div className="relative z-10">
-              <div className="flex items-center gap-3 md:gap-4">
-                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-${item.color}`}>
-                  {item.completed === item.total ? (
-                    <CheckCircle className="w-6 h-6 md:w-7 md:h-7 text-white" />
-                  ) : (
-                    <Clock className="w-6 h-6 md:w-7 md:h-7 text-white" />
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-sm md:text-base font-poppins font-semibold text-slate mb-0.5 truncate">
-                    {item.label}
-                  </h3>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-slate/60 font-inter text-sm">
-                    <span className="flex items-center gap-1 flex-shrink-0">
-                      <Clock className="w-4 h-4" />
-                      {item.time}
-                    </span>
-                    <span className="text-xs sm:text-sm truncate">{item.supplements.join(', ')}</span>
-                  </div>
-                </div>
-                <div className="flex-shrink-0">
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-white/10 flex items-center justify-center">
-                    <ChevronRight className="w-4 h-4 md:w-5 md:h-5 text-slate/60" />
-                  </div>
-                </div>
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <h4 className="text-sm sm:text-base md:text-lg font-medium text-slate-800">{item.label}</h4>
+                <span className="text-xs sm:text-sm md:text-base font-medium text-slate-600">{item.completed}/{item.total}</span>
+              </div>
+              <div className="h-1.5 sm:h-2 md:h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                <div 
+                  className={`h-full bg-gradient-to-r from-${item.color} to-${item.color}-light rounded-full transition-all duration-500`}
+                  style={{ width: `${(item.completed / item.total) * 100}%` }}
+                />
               </div>
             </div>
           </div>
